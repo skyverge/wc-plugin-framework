@@ -1,5 +1,7 @@
 *** SkyVerge WooCommerce Plugin Framework Changelog ***
 
+2020.nn.nn - version 5.7.2-dev.1
+
 2020.05.15 - version 5.7.1
  * Fix - Prevent JavaScript error triggered when different versions of the framework are used at the same time
  * Fix - Fix URL for the Configure link in the admin notes shown for payment gateways that are not configured

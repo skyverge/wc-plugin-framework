@@ -96,6 +96,8 @@ abstract class SV_WC_Plugin {
 	/** @var SV_WC_Admin_Notice_Handler the admin notice handler class */
 	private $admin_notice_handler;
 
+	/** @var Integrations\Integrations */
+	private $integrations;
 
 	/**
 	 * Initialize the plugin.
@@ -158,6 +160,8 @@ abstract class SV_WC_Plugin {
 
 		// build the setup handler instance
 		$this->init_setup_wizard_handler();
+
+		$this->init_integrations();
 
 		// add the action & filter hooks
 		$this->add_hooks();
@@ -262,6 +266,17 @@ abstract class SV_WC_Plugin {
 	protected function init_setup_wizard_handler() {
 
 		require_once( $this->get_framework_path() . '/admin/abstract-sv-wc-plugin-admin-setup-wizard.php' );
+	}
+
+
+	/**
+	 * Builds the Integrations instance.
+	 *
+	 * @return 5.7.2-dev.1
+	 */
+	protected function init_integrations() {
+
+		$this->integrations = new Integrations\Integrations( $this );
 	}
 
 
@@ -462,6 +477,10 @@ abstract class SV_WC_Plugin {
 		require_once( $framework_path . '/class-sv-wc-admin-notice-handler.php' );
 		require_once( $framework_path . '/Lifecycle.php' );
 		require_once( $framework_path . '/rest-api/class-sv-wc-plugin-rest-api.php' );
+
+		// Integrations
+		require_once( $framework_path . '/Integrations/Integrations.php' );
+		require_once( $framework_path . '/Integrations/Disable_Admin_Notices.php' );
 	}
 
 
