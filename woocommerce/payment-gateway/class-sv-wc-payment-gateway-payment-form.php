@@ -978,9 +978,9 @@ class SV_WC_Payment_Gateway_Payment_Form extends Handlers\Script_Handler {
 	protected function render_payment_field( $field ) {
 
 		woocommerce_form_field(
-			isset ( $field['name'] ) ? $field['name'] : null,
+			isset( $field['name'] ) ? $field['name'] : null,
 			$field,
-			isset ( $field['value'] ) ? $field['value'] : null
+			isset( $field['value'] ) ? $field['value'] : null
 		);
 	}
 
