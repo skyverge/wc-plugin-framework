@@ -328,6 +328,22 @@ class SV_WC_Plugin_Compatibility {
 	}
 
 
+	/**
+	 * Determines whether an enhanced admin feature is available in the current installation.
+	 *
+	 * @since x.y.z
+	 *
+	 * @param string $feature_name WC Admin feature name, e.g. 'marketing'
+	 * @return bool
+	 */
+	public static function is_enhanced_admin_feature_enabled( $feature_name ) {
+
+		return self::is_enhanced_admin_available()
+			&& is_callable( 'Automattic\WooCommerce\Admin\Loader::is_feature_enabled' )
+			&& Automattic\WooCommerce\Admin\Loader::is_feature_enabled( $feature_name );
+	}
+
+
 	/** WordPress core ******************************************************/
 
 
