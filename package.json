@@ -37,7 +37,7 @@
     "parcel-bundler": "^1.12.5",
     "rimraf": "^3.0.2",
     "time-grunt": "~1.2.1",
-    "underscore": "~1.8.3",
+    "underscore": "~1.12.1",
     "underscore.string": "~3.3.5"
   }
 }
