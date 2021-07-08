@@ -93,6 +93,9 @@ abstract class SV_WC_Plugin {
 	/** @var Admin\Setup_Wizard handler instance */
 	protected $setup_wizard_handler;
 
+	/** @var Language_Packs */
+	private $language_packs;
+
 	/** @var SV_WC_Admin_Notice_Handler the admin notice handler class */
 	private $admin_notice_handler;
 
@@ -111,6 +114,11 @@ abstract class SV_WC_Plugin {
 	 *
 	 *     @type int|float $latest_wc_versions the last supported versions of WooCommerce, as a major.minor float relative to the latest available version
 	 *     @type string $text_domain the plugin textdomain, used to set up translations
+	 *     @type array $languages {
+	 *         additional language configuration for language packs and translations support
+	 *
+	 *         @type string $api_url remote URL to retrieve translations from
+	 *     }
 	 *     @type array  $dependencies {
 	 *         PHP extension, function, and settings dependencies
 	 *
@@ -130,6 +138,7 @@ abstract class SV_WC_Plugin {
 			'min_wc_semver' => 0.2, // by default, 2 minor versions behind the latest published are supported
 			'text_domain'   => '',
 			'dependencies'  => [],
+			'languages'     => [],
 		] );
 
 		$this->min_wc_semver = is_numeric( $args['min_wc_semver'] ) ? abs( $args['min_wc_semver'] ) : null;
@@ -158,6 +167,9 @@ abstract class SV_WC_Plugin {
 
 		// build the setup handler instance
 		$this->init_setup_wizard_handler();
+
+		// build the language packs handler instance
+		$this->init_language_packs_handler( $args['languages'] );
 
 		// add the action & filter hooks
 		$this->add_hooks();
@@ -262,6 +274,19 @@ abstract class SV_WC_Plugin {
 	protected function init_setup_wizard_handler() {
 
 		require_once( $this->get_framework_path() . '/admin/abstract-sv-wc-plugin-admin-setup-wizard.php' );
+	}
+
+
+	/**
+	 * Initializes the language packs handler.
+	 *
+	 * @since x.y.z
+	 *
+	 * @param array $config plugin languages support configuration
+	 */
+	protected function init_language_packs_handler( $config ) {
+
+		$this->language_packs = new Language_Packs( $this, $config );
 	}
 
 
@@ -462,6 +487,7 @@ abstract class SV_WC_Plugin {
 		require_once( $framework_path . '/class-sv-wc-admin-notice-handler.php' );
 		require_once( $framework_path . '/Lifecycle.php' );
 		require_once( $framework_path . '/rest-api/class-sv-wc-plugin-rest-api.php' );
+		require_once( $framework_path . '/Language_Packs.php' );
 	}
 
 
